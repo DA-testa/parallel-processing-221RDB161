@@ -1,30 +1,36 @@
 # python3
+# Linards Tomass Beķeris 221RDB161
 
 def parallel_processing(n, m, data):
-    output = []
-    # TODO: write the function for simulating parallel tasks, 
-    # create the output pairs
 
+    output = []
+
+    pabeigsanas_laiki = [0] * n
+    threads_drb = [[] for _ in range(n)]
+
+    # for cikls
+    for i in range(m):
+        min_laiks = min(pabeigsanas_laiki)
+        min_thread = pabeigsanas_laiki.index(min_laiks)
+        threads_drb[min_thread].append(i)
+        starta_laiks = pabeigsanas_laiki[min_thread]
+        pabeigsanas_laiki[min_thread] += data[i]
+        output.append((min_thread, starta_laiks))
     return output
 
+
 def main():
-    # TODO: create input from keyboard
-    # input consists of two lines
-    # first line - n and m
-    # n - thread count 
-    # m - job count
-    n = 0
-    m = 0
-
-    # second line - data 
-    # data - contains m integers t(i) - the times in seconds it takes any thread to process i-th job
-    data = []
-
-    # TODO: create the function
-    result = parallel_processing(n,m,data)
     
-    # TODO: print out the results, each pair in it's own line
+    # pieprasa n un m vertibas aka thread count un job count
+    n, m = map(int, input("Ievadi thread count un job count: ").split())
 
+    # pieprasa ievadit datus (2 linija)
+    data = list(map(int, input("Ievadi datus: ").split()))
+
+    # izsauc funkciju un printe rezultatu
+    result = parallel_processing(n, m, data)
+    for thread, starta_laiks in result:
+        print(thread, starta_laiks)
 
 
 if __name__ == "__main__":
